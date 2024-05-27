@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Predikat Kelulusan</title>
+    <style>
+        body {
+            font-family: Georgia, Monospace;
+            background-color: Silver;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: Grey;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: Green;
+            color: Red;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: White;
+        }
+
+        #predikat {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Program Predikat Kelulusan</h2>
+        <label for="nilai">Masukkan nilai:</label>
+        <input type="number" id="nilai" name="nilai" min="0" max="100">
+        <button onclick="cekNilai()">Cek</button>
+        <p id="predikat"></p>
+    </div>
+ <!-- Hak Cipta -->
+    <p style="text-align: center; font-style: italic;">© Fauzan Majid 2024</p>
+    <script>
+        function cekNilai() {
+            var nilai = document.getElementById("nilai").value;
+            var predikat = document.getElementById("predikat");
+
+            if (nilai >= 75) {
+                predikat.textContent = "Predikat: LULUS";
+            } else {
+                predikat.textContent = "Predikat: TIDAK LULUS";
+            }
+        }
+    </script>
+</body>
+</html>
