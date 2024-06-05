@@ -112,11 +112,13 @@
             var struk = '<tr><th>Menu</th><th>Jumlah</th><th>Subtotal</th></tr>';
             var total = 0;
             for (var i = 0; i < menuIds.length; i++) {
-                var namaMenu = document.getElementById(menuIds[i]).childNodes[1].innerText;
                 var jumlah = document.getElementById(menuIds[i] + 'Jumlah').value;
-                var subtotal = document.getElementById(menuIds[i] + 'Subtotal').innerText;
-                struk += '<tr><td>' + namaMenu + '</td><td>' + jumlah + '</td><td>' + subtotal + '</td></tr>';
-                total += parseInt(subtotal.split(' ')[1].replace('.', '').replace(',', ''));
+                if (parseInt(jumlah) > 0) {
+                    var namaMenu = document.getElementById(menuIds[i]).childNodes[1].innerText;
+                    var subtotal = document.getElementById(menuIds[i] + 'Subtotal').innerText;
+                    struk += '<tr><td>' + namaMenu + '</td><td>' + jumlah + '</td><td>' + subtotal + '</td></tr>';
+                    total += parseInt(subtotal.split(' ')[1].replace('.', '').replace(',', ''));
+                }
             }
             document.getElementById('strukTable').innerHTML = struk;
             document.getElementById('totalStruk').innerText = 'Rp ' + total.toLocaleString('id-ID');
