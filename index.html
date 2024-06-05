@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Kopi</title>
+    <style>
+        body {
+            font-family: Georgia, Monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid Purple;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: silver;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .struk {
+            margin-top: 20px;
+            padding: 10px;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="title">Menu Kopi</h2>
+    <table id="menuTable">
+        <tr>
+            <th>Menu</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+            <th>Subtotal</th>
+        </tr>
+        <!-- Tambahkan item menu kopi di sini -->
+        <tr id="Espresso">
+            <td>Espresso</td>
+            <td id="EspressoHarga">Rp 15.000</td>
+            <td><input type="number" id="EspressoJumlah" value="0" oninput="hitungSubtotal('Espresso')"></td>
+            <td id="EspressoSubtotal">Rp 0</td>
+        </tr>
+        <!-- Tambahkan item menu kopi lainnya di sini -->
+        <tr id="Latte">
+            <td>Latte</td>
+            <td id="LatteHarga">Rp 20.000</td>
+            <td><input type="number" id="LatteJumlah" value="0" oninput="hitungSubtotal('Latte')"></td>
+            <td id="LatteSubtotal">Rp 0</td>
+        </tr>
+        <tr id="Cappuccino">
+            <td>Cappuccino</td>
+            <td id="CappuccinoHarga">Rp 18.000</td>
+            <td><input type="number" id="CappuccinoJumlah" value="0" oninput="hitungSubtotal('Cappuccino')"></td>
+            <td id="CappuccinoSubtotal">Rp 0</td>
+        </tr>
+        <tr id="Mocha">
+            <td>Mocha</td>
+            <td id="MochaHarga">Rp 22.000</td>
+            <td><input type="number" id="MochaJumlah" value="0" oninput="hitungSubtotal('Mocha')"></td>
+            <td id="MochaSubtotal">Rp 0</td>
+        </tr>
+    </table>
+
+    <button onclick="cetakStruk()">Cetak Struk</button>
+
+    <div id="struk" class="struk" style="display: none;">
+        <h3>Struk Pembelian</h3>
+        <table id="strukTable">
+            <!-- Isi struk akan dimasukkan di sini -->
+        </table>
+        <hr>
+        <p>Total: <span id="totalStruk">Rp 0</span></p>
+        <p>Subtotal Pesanan: <span id="subtotalPesanan">Rp 0</span></p>
+    </div>
+
+    <footer>
+        &copy; 2024 Fauzan Dirnt. All rights reserved.
+    </footer>
+
+    <script>
+        function hitungSubtotal(id) {
+            var jumlah = parseInt(document.getElementById(id + 'Jumlah').value);
+            var harga = parseInt(document.getElementById(id + 'Harga').innerText.split(' ')[1].replace('.', '').replace(',', ''));
+            var subtotal = jumlah * harga;
+            document.getElementById(id + 'Subtotal').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+            hitungTotal();
+        }
+
+        function hitungTotal() {
+            var total = 0;
+            var menuIds = ['Espresso', 'Latte', 'Cappuccino', 'Mocha'];
+            for (var i = 0; i < menuIds.length; i++) {
+                var subtotal = parseInt(document.getElementById(menuIds[i] + 'Subtotal').innerText.split(' ')[1].replace('.', '').replace(',', ''));
+                total += subtotal;
+            }
+            document.getElementById('subtotalPesanan').innerText = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        function cetakStruk() {
+            var menuIds = ['Espresso', 'Latte', 'Cappuccino', 'Mocha'];
+            var struk = '<tr><th>Menu</th><th>Jumlah</th><th>Subtotal</th></tr>';
+            var total = 0;
+            for (var i = 0; i < menuIds.length; i++) {
+                var namaMenu = document.getElementById(menuIds[i]).childNodes[1].innerText;
+                var jumlah = document.getElementById(menuIds[i] + 'Jumlah').value;
+                var subtotal = document.getElementById(menuIds[i] + 'Subtotal').innerText;
+                struk += '<tr><td>' + namaMenu + '</td><td>' + jumlah + '</td><td>' + subtotal + '</td></tr>';
+                total += parseInt(subtotal.split(' ')[1].replace('.', '').replace(',', ''));
+            }
+            document.getElementById('strukTable').innerHTML = struk;
+            document.getElementById('totalStruk').innerText = 'Rp ' + total.toLocaleString('id-ID');
+            document.getElementById('struk').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
